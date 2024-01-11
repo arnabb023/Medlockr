@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Files</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>What would you like to do?</h1>
+    <button onclick="goToPage1()">Upload</button>
+    <button onclick="goToPage2()">Download</button>
+  </div>
+
+  <script>
+    function goToPage1() {
+      window.location.href = 'http://localhost/file_upload_download/';
+    }
+
+    function goToPage2() {
+      window.location.href = 'http://localhost/file_upload_download/download.php';
+    }
+  </script>
+</body>
+
+</html>

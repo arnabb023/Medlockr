@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency QR Code Generator</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+        }
+
+        input,
+        textarea {
+            padding: 8px;
+            margin-bottom: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        small {
+            color: #777;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #qrcode {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Emergency QR Code Generator</h1>
+    <form id="emergencyForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="contact">Contact:</label>
+        <input type="tel" id="contact" name="contact" pattern="[0-9]{10}" placeholder="e.g., 1234567890" required>
+        <small>Enter a 10-digit phone number</small>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="allergies">Allergies:</label>
+        <textarea id="allergies" name="allergies" rows="2"></textarea>
+
+        <label for="implants">Surgical Implants:</label>
+        <textarea id="implants" name="implants" rows="2"></textarea>
+
+        <label for="other">Other Categories:</label>
+        <textarea id="other" name="other" rows="2"></textarea>
+
+        <button type="button" id="generateQRCodeBtn">Generate QR Code</button>
+    </form>
+
+    <div id="qrcode"></div>
+</div>
+
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function generateQRCode() {
+            var formData = new FormData(document.getElementById("emergencyForm"));
+
+            // Extract form data
+            var name = formData.get("name");
+            var contact = formData.get("contact");
+            var allergies = formData.get("allergies");
+            var implants = formData.get("implants");
+            var other = formData.get("other");
+
+            // Create an object with the extracted data
+            var userData = {
+                Name: name,
+                Contact: contact,
+                Allergies: allergies,
+                Implants: implants,
+                Other: other,
+            };
+
+            // Convert the object to a JSON string
+            var qrData = JSON.stringify(userData);
+
+            // Clear previous QR code if any
+            document.getElementById("qrcode").innerHTML = "";
+
+            // Generate QR code
+            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                text: qrData,
+                width: 300,
+                height: 300,
+                colorDark: "#000000", // Dark color
+                colorLight: "#ffffff", // Light color
+                correctLevel: QRCode.CorrectLevel.H, // Error correction level
+            });
+        }
+
+        // Attach event listener to the button
+        document.getElementById("generateQRCodeBtn").addEventListener("click", generateQRCode);
+    });
+</script>
+</body>
+</html>
